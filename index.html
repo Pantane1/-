@@ -136,6 +136,7 @@
 
         .skills-section {
             margin: 40px 0;
+            position: relative;
         }
 
         .skills-section h3 {
@@ -145,31 +146,97 @@
             margin-bottom: 30px;
         }
 
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
+        /* Scrolling skills container */
+        .skills-scroll-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            padding: 20px 0;
+        }
+        
+        .skills-scroll-container::before,
+        .skills-scroll-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 100px;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+        
+        .skills-scroll-container::before {
+            left: 0;
+            background: linear-gradient(to right, rgba(255,255,255,0.95), transparent);
+        }
+        
+        .skills-scroll-container::after {
+            right: 0;
+            background: linear-gradient(to left, rgba(255,255,255,0.95), transparent);
+        }
+
+        @keyframes scrollSkills {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-250px * 9));
+            }
+        }
+
+        .skills-scroll-track {
+            display: flex;
+            width: fit-content;
+            animation: scrollSkills 30s linear infinite;
+        }
+
+        .skills-scroll-track:hover {
+            animation-play-state: paused;
         }
 
         .skill-item {
             background: #f8f9fa;
-            padding: 12px 8px;
+            padding: 15px 25px;
+            margin: 0 10px;
             text-align: center;
-            border-radius: 10px;
-            font-size: 0.95rem;
+            border-radius: 40px;
+            font-size: 1.1rem;
             font-weight: 500;
             color: #555;
             transition: all 0.3s ease;
             border: 1px solid #eaeaea;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .skill-item i {
+            font-size: 1.3rem;
+            color: #667eea;
         }
 
         .skill-item:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
             border-color: #667eea;
             color: #667eea;
+            background: white;
+        }
+
+        /* Different animation speeds for multiple rows */
+        .skills-scroll-track.slow {
+            animation: scrollSkills 40s linear infinite;
+        }
+        
+        .skills-scroll-track.fast {
+            animation: scrollSkills 20s linear infinite;
+        }
+
+        .skills-scroll-track.reverse {
+            animation: scrollSkills 30s linear infinite reverse;
         }
 
         .button-container {
@@ -254,14 +321,14 @@
                 font-size: 1rem;
             }
             
-            .skills-grid {
-                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-                gap: 10px;
-            }
-            
             .portfolio-btn {
                 font-size: 1.1rem;
                 padding: 15px 40px;
+            }
+            
+            .skill-item {
+                padding: 12px 20px;
+                font-size: 1rem;
             }
         }
 
@@ -270,11 +337,14 @@
                 font-size: 2rem;
             }
             
-            .skills-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .skills-scroll-container::before,
+            .skills-scroll-container::after {
+                width: 50px;
             }
         }
     </style>
+    <!-- Add Font Awesome for icons (optional, for visual enhancement) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <?php
@@ -290,8 +360,8 @@
             'Redis', 'GraphQL', 'Tailwind', 'Git', 'Vite', 'Jenkins'
         ];
         
-        // Shuffle for visual interest (optional)
-        shuffle($skills);
+        // Duplicate the array for seamless looping
+        $skills_scroll = array_merge($skills, $skills);
     ?>
     
     <div class="container">
@@ -316,10 +386,41 @@
             
             <div class="skills-section">
                 <h3>Technologies & Tools</h3>
-                <div class="skills-grid">
-                    <?php foreach ($skills as $skill): ?>
-                        <div class="skill-item"><?php echo htmlspecialchars($skill); ?></div>
-                    <?php endforeach; ?>
+                
+                <!-- First scrolling row (left to right) -->
+                <div class="skills-scroll-container">
+                    <div class="skills-scroll-track">
+                        <?php foreach ($skills_scroll as $skill): ?>
+                            <div class="skill-item">
+                                <i class="fas fa-code"></i>
+                                <?php echo htmlspecialchars($skill); ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                
+                <!-- Second scrolling row (right to left - reverse) -->
+                <div class="skills-scroll-container" style="margin-top: 15px;">
+                    <div class="skills-scroll-track reverse">
+                        <?php foreach (array_reverse($skills_scroll) as $skill): ?>
+                            <div class="skill-item">
+                                <i class="fas fa-cog"></i>
+                                <?php echo htmlspecialchars($skill); ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                
+                <!-- Third scrolling row (faster speed) -->
+                <div class="skills-scroll-container" style="margin-top: 15px;">
+                    <div class="skills-scroll-track fast">
+                        <?php foreach ($skills_scroll as $skill): ?>
+                            <div class="skill-item">
+                                <i class="fas fa-star"></i>
+                                <?php echo htmlspecialchars($skill); ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
             </div>
             
