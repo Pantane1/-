@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pantane Hub | W.Martin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header h2 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            opacity: 0.95;
+            margin-bottom: 30px;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.2);
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 500;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin-top: 20px;
+        }
+
+        .content {
+            padding: 50px 40px;
+        }
+
+        .intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 50px;
+        }
+
+        .intro h3 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .intro p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #666;
+        }
+
+        .intro strong {
+            color: #667eea;
+        }
+
+        .skills-section {
+            margin: 40px 0;
+        }
+
+        .skills-section h3 {
+            text-align: center;
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .skill-item {
+            background: #f8f9fa;
+            padding: 12px 8px;
+            text-align: center;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #555;
+            transition: all 0.3s ease;
+            border: 1px solid #eaeaea;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .skill-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .button-container {
+            text-align: center;
+            margin: 50px 0 20px;
+        }
+
+        .portfolio-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 600;
+            padding: 18px 50px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            border: 2px solid transparent;
+            letter-spacing: 1px;
+        }
+
+        .portfolio-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+
+        .portfolio-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            background: #f8f9fa;
+            color: #888;
+            font-size: 0.95rem;
+            border-top: 1px solid #eaeaea;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .header h2 {
+                font-size: 1.2rem;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+            
+            .intro h3 {
+                font-size: 1.6rem;
+            }
+            
+            .intro p {
+                font-size: 1rem;
+            }
+            
+            .skills-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 10px;
+            }
+            
+            .portfolio-btn {
+                font-size: 1.1rem;
+                padding: 15px 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <?php
+        // PHP variable for dynamic year
+        $currentYear = date('Y');
+        
+        // Skills array from the provided website
+        $skills = [
+            'React', 'Vue.js', 'Angular', 'Next.js', 'Django', 'Laravel', 'Spring', 'Flask',
+            'TypeScript', 'Node.js', 'Python', 'Go', 'Rust', 'C++', 'TensorFlow', 'PyTorch',
+            'Keras', 'Scikit-Learn', 'Pandas', 'NumPy', 'OpenCV', 'Hugging Face', 'OpenAI',
+            'Docker', 'Kubernetes', 'AWS', 'Azure', 'Google Cloud', 'PostgreSQL', 'MongoDB',
+            'Redis', 'GraphQL', 'Tailwind', 'Git', 'Vite', 'Jenkins'
+        ];
+        
+        // Shuffle for visual interest (optional)
+        shuffle($skills);
+    ?>
+    
+    <div class="container">
+        <div class="header">
+            <h1>PANTANEHUB</h1>
+            <h2>Available for new opportunities</h2>
+            <div class="badge">
+                ✦ Driven by curiosity, clean systems, and building things that actually work ✦
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="intro">
+                <h3>Welcome to Pantane Hub.</h3>
+                <p>
+                    I'm <strong>W.Martin</strong> — driven by curiosity, clean systems, and building things that actually work. 
+                    This space is where I share what I'm building, what I'm learning, and what I'm exploring next. 
+                    Feel free to look around, check out my projects, connect with me, or reach out if you'd like us 
+                    to build something together.
+                </p>
+            </div>
+            
+            <div class="skills-section">
+                <h3>Technologies & Tools</h3>
+                <div class="skills-grid">
+                    <?php foreach ($skills as $skill): ?>
+                        <div class="skill-item"><?php echo htmlspecialchars($skill); ?></div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            
+            <div class="button-container">
+                <a href="https://pantane.vercel.app/" class="portfolio-btn" target="_blank" rel="noopener noreferrer">
+                    ✦ See Portfolio ✦
+                </a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© <?php echo $currentYear; ?> Pantane Hub. All rights reserved. | Built with PHP and love</p>
+            <p style="margin-top: 10px; font-size: 0.85rem;">
+                <a href="https://pantane.vercel.app/" target="_blank" rel="noopener noreferrer">Visit original portfolio</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
